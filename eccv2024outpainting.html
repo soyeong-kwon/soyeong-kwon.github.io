@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Zero-shot Text-guided Infinite Image Synthesis with LLM guidance, ECCV 2024">
+  <meta name="keywords" content="ECCV2024, ECCV">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zero-shot Text-guided Infinite Image Synthesis with LLM guidance</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src=""></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/out_index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+ <meta name="google-site-verification" content="04MAX7U6p8EJxriBihcBaOVxV-O8_mmpbbnSuynE6Zc" />
+
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://github.com/babypotatotang">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <p>European Conference on Computer Vision (ECCV), 2024</p>
+          <h1 class="title is-1 publication-title">Zero-shot Text-guided Infinite Image Synthesis
+            with LLM guidance</h1>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://sites.google.com/view/soyeongkwon">Soyeong Kwon*</a>,</span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/taegyeonglee/home">Taegyeong Lee*</a>,</span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/taehwankim">Taehwan Kim</a>
+            </span>
+           
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Artificial Intelligence Graduate School, UNIST</span><br>
+            <span class="author-block">{soyoung17, taegyeonglee, taehwankim}@unist.ac.kr </span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser ">
+  <div class="container is-max-desktop">
+    <div class="hero-body" >
+      <img id="teaser" src="./static/images/outpainting/supp_4k.png" height="100%">
+        <p><b>Generated samples with 4k resolution.</b> We expand the given local image upwards and downwards twice, and left and right a total of 16 times, to follow the given global caption. The resolution of the generated image is 4608 X 1536. The red box is the given local image.</p> 
+    </div>
+  </div>
+</section> -->
+
+
+
+
+
+<section class="section ">
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered" style="padding-bottom: 5%;">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Generated samples with 4k resolution</h2>
+        <p> We expand the given local image upwards and downwards twice, and left and right a total of 16 times, to follow the given global caption. The resolution of the generated image is <span style="color: #0000FF;"><span class="dnerf"><b>4608 X 1536</b></span></span>. The red box is the given local image.</p> 
+        <div id="carousel" class="carousel">
+          <div class="img-txt">
+            <img src="./static/images/outpainting/higher1.png" >
+            <p style="text-align: center;">A <span style="color: #974EC3;"><b>bustling park scene</b></span> unfolds with sunlight filtering through trees, where on one side, <span style="color: #974EC3;"><b>people pull bicycles</b></span> on lush green grass, and on the other, families and friends <span style="color: #974EC3;"><b>take leisurely walks or sit by a tranquil lake,</b></span> immersing themselves <span style="color: #974EC3;"><b>in the peaceful harmony of nature's embrace.</b></span></p>
+          </div>
+          <div class="img-txt">
+            <img src="./static/images/outpainting/higher2.png" >
+            <p style="text-align: center;">A view unfolds with <span style="color: #974EC3;"><b>horse-drawn carriages</b></span> winding along a path bordered by <span style="color: #974EC3;"><b>vibrant flowers and a grand clock tower</b></span> overseeing the tranquil <span style="color: #974EC3;"><b>botanical</b></span> setting.</p>            
+          </div>
+          <div class="img-txt">
+            <img src="./static/images/outpainting/higher3.png" >
+            <p style="text-align: center;">A vibrant scene of <span style="color: #974EC3;"><b>water sports on a scenic lake,</b></span> featuring a variety of boats, expert wakeboarders, and <span style="color: #974EC3;"><b>adventurous waterskiers.</b></span> The tranquil environment is enriched by lush greenery and picturesque buildings, forming an <span style="color: #974EC3;"><b>dynamic landscape.</b></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered" style="padding-bottom: 5%;">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Text-guided image editing and generation methods have diverse real-world applications. However, text-guided infinite image synthesis faces several challenges. First, there is a lack of text-image paired datasets with high-resolution and contextual diversity. Second, expanding images based on text requires global coherence and rich local context understanding. Previous studies have mainly focused on limited categories, such as natural landscapes, and also required to train on high-resolution images with paired text. To address these challenges, we propose a novel approach utilizing Large Language Models (LLMs) for both global coherence and local context understanding, without any high-resolution text-image paired training dataset. We train the diffusion model to expand an image conditioned on global and local captions generated from the LLM and visual feature. At the inference stage, given an image and a global caption, we use the LLM to generate a next local caption to expand the input image. Then, we expand the image using the global caption, generated local caption and the visual feature to consider global consistency and spatial local context. In experiments, our model outperforms the baselines both quantitatively and qualitatively. Furthermore, our model demonstrates the capability of text-guided arbitrary-sized image generation in zero-shot manner with LLM guidance. 
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Method Overview. -->
+    <div class="columns is-centered has-text-centered" style="padding: 1px;">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method Overview</h2>
+        <div class="content has-text-justified">
+          <img id="teaser" src="./static/images/outpainting/overview.png" height="100%">
+          <p><b>Model Architecture.</b> We fine-tune the diffusion model using local masked image as input, conditioned on the $W$ vector. Green boxes are trainable networks. Blue boxes are frozen networks.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="section">
+  <h2 class="title has-text-centered">Generated Image Results</h2>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/horizontal_1.png"width="2560px" height="512px">
+          <p>
+            <b>A cozy and elegantly decorated living room</b> featuring a comfortable sofa, a fireplace, and large windows.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/horizontal_2.png"width="2560px" height="512px">
+          <p>
+            <b>A little girl</b> is sitting on a bed <b>next to a lamp</b> in a bedroom that opens to <b>a garden</b>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/horizontal_3.png"width="2560px" height="512px">
+          </video>
+          <p>
+            A <b>garden pathway</b> featuring vibrant greenery and blooming flowers, with <b>a motorcycle parked</b>.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/horizontal_4.png"width="2560px" height="512px">
+          <p>
+            A vibrant view of a bustling <b>marina</b> nestled in <b>a lush green valley,</b> showing boats with a serene promenade and <b>flower beds under a clear blue sky.</b>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/horizontal_5.png"width="2560px" height="512px">
+          </video>
+          <p>
+            <b>A sunny day in the park</b> captures the joy of childhood with children engaging in <b>outdoor activities</b>, their laughter and playfulness creating <b>a lively atmosphere</b>.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/horizontal_6.png"width="2560px" height="512px">
+          <p>
+            <b>A well-organized kitchen scene</b> with open shelving full of utensils and dishes, featuring <b>a woman in a patterned dress</b> engrossed in cooking, a sign of daily life and warmth.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/vertical_1.png" class="custom-img">
+          </video>
+          <p>
+            <b>A view of a city street</b> captures a stop sign, a parking meter, and the sleek lines of <b>a modern sidewalk with architectures</b>.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/vertical_2.png" class="custom-img">
+          <p>
+            Vivid paper <b>roses</b> cascade from a <b>vase</b>, adding a splash of color above a crafting table laden with fabric and laces.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/vertical_3.png" class="custom-img">
+          <p>
+            <b>A tennis player</b> serving the ball, with the <b>audience in the background</b>, at a professional tennis match.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/vertical_4.png" class="custom-img">
+          <p>
+            A <b>sun-soaked beachfront</b> with a modern cityscape, where waters shadowed by <b>towering buildings</b>.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/vertical_5.png" class="custom-img">
+          <p>
+            <b>A child</b> is engrossed in <b>a video game</b>, surrounded by cozy blankets and <b>a cat resting</b> nearby.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/outpainting/vertical_6.png" class="custom-img">
+          <p>
+            <b>Giraffes, zebras and elephants</b> freely roam in the <b>savannah</b>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{lee2023generating,
+      title={Generating Realistic Images from In-the-wild Sounds},
+      author={Lee, Taegyeong and Kang, Jeonghun and Kim, Hyeonyu and Kim, Taehwan},
+      booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+      pages={7160--7170},
+      year={2023}
+    }</code></pre>
+  </div>
+</section> -->
+
+<section class="section" id="Acknowledgment">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgment</h2>
+    <p>
+      This work was supported by Institute of Information \& communications Technology Planning \& Evaluation (IITP) grant funded by the Korea government (MSIT) (No.2022-0-00608, Artificial intelligence research about multi-modal interactions for empathetic conversations with humans \& No.RS-2020-II201336, Artificial Intelligence graduate school support(UNIST)) and the National Research Foundation of Korea(NRF) grant funded by the Korea government(MSIT) (No. RS-2023-00219959).
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://sites.google.com/view/soyeongkwon" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <h3>
+            Machine learning, Vision & Language Lab, <a href="https://sites.google.com/view/mvllab/home">MVLLAB</a>
+          </h3>
+          <p>
+
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
